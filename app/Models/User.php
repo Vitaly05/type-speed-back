@@ -69,4 +69,14 @@ class User extends Authenticatable
 		'updated_at',
 		'created_at',
 	];
+
+	public function texts()
+	{
+		return $this->hasMany( Text::class, 'user_id', 'id' );
+	}
+
+	public function textProgresses()
+	{
+		return $this->hasMany( TextProgress::class, 'user_id', 'id' );
+	}
 }
