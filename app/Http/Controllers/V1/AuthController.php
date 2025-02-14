@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
 	public function register( RegistrationRequest $request )
 	{
-		$name = trim( $request->input( 'username' ) );
+		$name = trim( $request->input( 'name' ) );
 		$email = trim( $request->input( 'email' ) );
 		$password = trim( $request->input( 'password' ) );
 
