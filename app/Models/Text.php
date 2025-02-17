@@ -4,16 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Prompts\Progress;
+use Orchid\Filters\Filterable;
+use Orchid\Filters\Types\Like;
+use Orchid\Filters\Types\Where;
+use Orchid\Screen\AsSource;
 
 class Text extends Model
 {
-	use HasFactory;
+	use HasFactory, AsSource, Filterable;
 
 	protected $fillable = [
 		'title',
+		'text',
 		'words_count',
 		'symbols_count',
+	];
+
+	protected $allowedSorts = [
+		'id',
+		'title',
+		'created_at',
+		'updated_at',
+	];
+
+	protected $allowedFilters = [
+		'id' => Where::class,
+		'title' => Like::class,
 	];
 
 	protected static function boot()

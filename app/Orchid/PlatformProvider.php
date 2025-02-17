@@ -8,7 +8,6 @@ use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemPermission;
 use Orchid\Platform\OrchidServiceProvider;
 use Orchid\Screen\Actions\Menu;
-use Orchid\Support\Color;
 
 class PlatformProvider extends OrchidServiceProvider
 {
@@ -39,6 +38,12 @@ class PlatformProvider extends OrchidServiceProvider
 				->title( 'Navigation' )
 				->route( config( 'platform.index' ) ),
 
+			Menu::make( 'Texts' )
+				->icon( 'bs.book' )
+				->title( 'Texts' )
+				->permission( 'platform.texts' )
+				->route( 'platform.texts' ),
+
 			Menu::make( __( 'Users' ) )
 				->icon( 'bs.people' )
 				->route( 'platform.systems.users' )
@@ -64,6 +69,8 @@ class PlatformProvider extends OrchidServiceProvider
 			ItemPermission::group( __( 'System' ) )
 				->addPermission( 'platform.systems.roles', __( 'Roles' ) )
 				->addPermission( 'platform.systems.users', __( 'Users' ) ),
+			ItemPermission::group( __( 'Base' ) )
+				->addPermission( 'platform.texts', __( 'Texts' ) ),
 		];
 	}
 }
