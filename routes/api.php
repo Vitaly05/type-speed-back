@@ -16,8 +16,11 @@ Route::controller( AuthController::class )
 Route::controller( TextController::class )
 	->prefix( 'text' )
 	->group( function () {
-		Route::get( 'all', 'all' )->middleware( OptionalSanctumAuth::class );
-		Route::get( 'all-user/{user_id}', 'allWithUserId' );
+		Route::middleware( OptionalSanctumAuth::class )
+			->group( function () {
+				Route::get( 'all', 'all' );
+				Route::get( 'all-user/{user_id}', 'allWithUserId' );
+			} );
 
 		Route::middleware( 'auth:sanctum' )
 			->group( function () {
