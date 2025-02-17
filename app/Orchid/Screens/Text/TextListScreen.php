@@ -21,7 +21,7 @@ class TextListScreen extends Screen
 	public function query() : iterable
 	{
 		return [
-			'texts' => Text::filters()->defaultSort( 'created_at' )->paginate( 20 ),
+			'texts' => Text::filters()->defaultSort( 'created_at', 'desc' )->paginate( 20 ),
 		];
 	}
 
