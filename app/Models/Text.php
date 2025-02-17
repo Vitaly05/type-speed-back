@@ -16,6 +16,7 @@ class Text extends Model
 	protected $fillable = [
 		'title',
 		'text',
+		'user_id',
 		'words_count',
 		'symbols_count',
 	];
