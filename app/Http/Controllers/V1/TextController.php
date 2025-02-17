@@ -14,21 +14,30 @@ class TextController extends Controller
 {
 	public function all()
 	{
-		$texts = Text::query()->whereNull( 'user_id' )->paginate( 9 );
+		$texts = Text::query()
+			->whereNull( 'user_id' )
+			->orderByDesc( 'created_at' )
+			->paginate( 9 );
 
 		return TextResource::collection( $texts );
 	}
 
 	public function allWithCurrentUserId()
 	{
-		$texts = Text::query()->where( 'user_id', auth()->user()->id )->paginate( 9 );
+		$texts = Text::query()
+			->where( 'user_id', auth()->user()->id )
+			->orderByDesc( 'created_at' )
+			->paginate( 9 );
 
 		return TextResource::collection( $texts );
 	}
 
 	public function allWithUserId( $user_id )
 	{
-		$texts = Text::query()->where( 'user_id', $user_id )->paginate( 9 );
+		$texts = Text::query()
+			->where( 'user_id', $user_id )
+			->orderByDesc( 'created_at' )
+			->paginate( 9 );
 
 		return TextResource::collection( $texts );
 	}
