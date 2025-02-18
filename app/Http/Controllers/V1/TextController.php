@@ -48,13 +48,15 @@ class TextController extends Controller
 		$text = trim( $request->input( 'text' ) );
 		$user_id = auth()->user()->id;
 
-		$text_model = Text::query()->create( [
+		Text::query()->create( [
 			'title' => $title,
 			'text' => $text,
 			'user_id' => $user_id,
 		] );
 
-		return new TextResource( $text_model );
+		return response()->json( [
+			'success' => true,
+		] );
 	}
 
 	public function edit( $id, EditTextRequest $request )
@@ -75,12 +77,32 @@ class TextController extends Controller
 			'text' => $text,
 		] );
 
-		return new TextResource( $text_model );
+		return response()->json( [
+			'success' => true,
+		] );
+	}
+
+	public function delete( $id )
+	{
+		$user_id = auth()->user()->id;
+
+		$text_model = Text::query()->find( $id );
+
+		if ( !$text_model || $text_model->user_id !== $user_id ) {
+			return $this->textNotFoundResponse();
+		}
+
+		$text_model->delete();
+
+		return response()->json( [
+			'success' => true,
+		] );
 	}
 
 	protected function textNotFoundResponse() : JsonResponse
 	{
 		return response()->json( [
+			'success' => false,
 			'message' => __( 'Text not found' ),
 		], 404 );
 	}

@@ -28,5 +28,6 @@ Route::controller( TextController::class )
 
 				Route::post( 'create', 'create' );
 				Route::post( '{id}/edit', 'edit' );
+				Route::delete( '{id}/delete', 'delete' );
 			} );
 	} );
