@@ -42,6 +42,17 @@ class TextController extends Controller
 		return TextResource::collection( $texts );
 	}
 
+	public function getById( $id )
+	{
+		$text_model = Text::query()->find( $id );
+
+		if ( !$text_model ) {
+			return $this->textNotFoundResponse();
+		}
+
+		return new TextResource( $text_model );
+	}
+
 	public function create( CreateTextRequest $request )
 	{
 		$title = trim( $request->input( 'title' ) );

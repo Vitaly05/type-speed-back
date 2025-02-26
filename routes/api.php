@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\TextController;
+use App\Http\Controllers\V1\TextProgressController;
 use App\Http\Middleware\OptionalSanctumAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::controller( TextController::class )
 			->group( function () {
 				Route::get( 'all', 'all' );
 				Route::get( 'all-user/{user_id}', 'allWithUserId' );
+				Route::get( 'get/{id}', 'getById' );
 			} );
 
 		Route::middleware( 'auth:sanctum' )
@@ -29,5 +31,14 @@ Route::controller( TextController::class )
 				Route::post( 'create', 'create' );
 				Route::post( '{id}/edit', 'edit' );
 				Route::delete( '{id}/delete', 'delete' );
+			} );
+	} );
+
+Route::controller( TextProgressController::class )
+	->prefix( 'text-progress' )
+	->group( function () {
+		Route::middleware( 'auth:sanctum' )
+			->group( function () {
+				Route::post( 'save', 'saveResult' );
 			} );
 	} );

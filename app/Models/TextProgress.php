@@ -12,6 +12,8 @@ class TextProgress extends Model
 	protected $fillable = [
 		'user_id',
 		'text_id',
+		'seconds_elapsed',
+		'mistakes_count',
 		'words_per_minute',
 		'symbols_per_minute',
 	];
