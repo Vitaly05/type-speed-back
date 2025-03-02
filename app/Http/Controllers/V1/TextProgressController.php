@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TextProgress\GetTextProgressesRequest;
 use App\Http\Requests\TextProgress\SaveProgressRequest;
 use App\Http\Resources\TextProgress\ProgressResource;
 use App\Http\Resources\TopResult\TopResultResource;
@@ -82,13 +83,33 @@ class TextProgressController extends Controller
 		}
 
 		$position = TopResult::query()
-			->whereNot( 'user_id', auth()->id() )
-			->where( 'symbols_per_minute', '>', $top_result->symbols_per_minute )
-			->count() + 1;
+				->whereNot( 'user_id', auth()->id() )
+				->where( 'symbols_per_minute', '>', $top_result->symbols_per_minute )
+				->count() + 1;
 
 		$top_result->position = $position;
 
 		return new TopResultResource( $top_result );
+	}
+
+	function getTextProgress( GetTextProgressesRequest $request )
+	{
+		$user_id = auth()->id();
+		$text_id = $request->input( 'text_id' );
+
+		$text = Text::query()->find( $text_id );
+
+		if ( !$text ) {
+			return $this->textNotFoundResponse();
+		}
+
+		$progresses = TextProgress::query()->where( [
+			'text_id' => $text_id,
+			'user_id' => $user_id,
+		] )->orderByDesc( 'created_at' )
+			->paginate( 10 );
+
+		return ProgressResource::collection( $progresses );
 	}
 
 	protected function textNotFoundResponse() : JsonResponse

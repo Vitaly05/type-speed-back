@@ -42,6 +42,7 @@ Route::controller( TextProgressController::class )
 		Route::middleware( 'auth:sanctum' )
 			->group( function () {
 				Route::get( 'my-best-result', 'getCurrentUserBestResult' );
+				Route::get( 'my-progresses', 'getTextProgress' );
 
 				Route::post( 'save', 'saveResult' );
 			} );
