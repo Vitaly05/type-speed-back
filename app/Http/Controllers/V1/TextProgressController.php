@@ -4,8 +4,11 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TextProgress\SaveProgressRequest;
+use App\Http\Resources\TextProgress\ProgressResource;
+use App\Http\Resources\TopResult\TopResultResource;
 use App\Models\Text;
 use App\Models\TextProgress;
+use App\Models\TopResult;
 use Illuminate\Http\JsonResponse;
 
 class TextProgressController extends Controller
@@ -34,9 +37,58 @@ class TextProgressController extends Controller
 			'symbols_per_minute' => $symbols_per_minute,
 		] );
 
+		$top_result = TopResult::query()->where( 'user_id', $user_id )->first();
+
+		if ( !$text->user_id ) {
+			if ( $top_result ) {
+				if ( $symbols_per_minute > $top_result->symbols_per_minute ) {
+					$top_result->symbols_per_minute = $symbols_per_minute;
+					$top_result->save();
+				}
+			} else {
+				TopResult::query()->create( [
+					'user_id' => $user_id,
+					'symbols_per_minute' => $symbols_per_minute,
+				] );
+			}
+		}
+
 		return response()->json( [
 			'success' => true,
 		] );
+	}
+
+	function getTopRating()
+	{
+		$top_results = TopResult::query()
+			->with( 'user' )
+			->orderByDesc( 'symbols_per_minute' )
+			->select( '*' )
+			->selectRaw( 'ROW_NUMBER() OVER (ORDER BY symbols_per_minute DESC) as position' )
+			->paginate( 15 );
+
+		return TopResultResource::collection( $top_results );
+	}
+
+	function getCurrentUserBestResult()
+	{
+		$top_result = TopResult::query()
+			->with( 'user' )
+			->where( 'user_id', auth()->id() )
+			->first();
+
+		if ( !$top_result ) {
+			return $this->resultNotFoundResponse();
+		}
+
+		$position = TopResult::query()
+			->whereNot( 'user_id', auth()->id() )
+			->where( 'symbols_per_minute', '>', $top_result->symbols_per_minute )
+			->count() + 1;
+
+		$top_result->position = $position;
+
+		return new TopResultResource( $top_result );
 	}
 
 	protected function textNotFoundResponse() : JsonResponse
@@ -45,5 +97,13 @@ class TextProgressController extends Controller
 			'success' => false,
 			'message' => __( 'Text not found' ),
 		], 404 );
+	}
+
+	protected function resultNotFoundResponse() : JsonResponse
+	{
+		return response()->json( [
+			'success' => false,
+			'message' => __( 'Result not found' ),
+		], 200 );
 	}
 }

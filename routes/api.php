@@ -37,8 +37,12 @@ Route::controller( TextController::class )
 Route::controller( TextProgressController::class )
 	->prefix( 'text-progress' )
 	->group( function () {
+		Route::get( 'top-rating', 'getTopRating' );
+
 		Route::middleware( 'auth:sanctum' )
 			->group( function () {
+				Route::get( 'my-best-result', 'getCurrentUserBestResult' );
+
 				Route::post( 'save', 'saveResult' );
 			} );
 	} );
