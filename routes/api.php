@@ -12,6 +12,9 @@ Route::controller( AuthController::class )
 		Route::post( 'register', 'register' );
 		Route::post( 'login-email', 'loginByEmail' );
 		Route::post( 'login-name', 'loginByName' );
+		Route::post( 'send-reset-code', 'resetPasswordRequest' );
+		Route::post( 'confirm-reset-code', 'confirmResetCode' );
+		Route::post( 'reset-password', 'resetPassword' );
 	} );
 
 Route::controller( TextController::class )
