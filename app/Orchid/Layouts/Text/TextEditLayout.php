@@ -26,11 +26,11 @@ class TextEditLayout extends Rows
 		return [
 			Input::make( 'text.title' )
 				->required()
-				->title( 'Title' ),
+				->title( 'Название' ),
 			TextArea::make( 'text.text' )
 				->required()
 				->rows( 20 )
-				->title( 'Text' ),
+				->title( 'Текст' ),
 		];
 	}
 }

@@ -56,30 +56,30 @@ Route::screen( 'users', UserListScreen::class )
 		->push( __( 'Users' ), route( 'platform.systems.users' ) ) );
 
 // Platform > System > Roles > Role
-Route::screen( 'roles/{role}/edit', RoleEditScreen::class )
-	->name( 'platform.systems.roles.edit' )
-	->breadcrumbs( fn( Trail $trail, $role ) => $trail
-		->parent( 'platform.systems.roles' )
-		->push( $role->name, route( 'platform.systems.roles.edit', $role ) ) );
+//Route::screen( 'roles/{role}/edit', RoleEditScreen::class )
+//	->name( 'platform.systems.roles.edit' )
+//	->breadcrumbs( fn( Trail $trail, $role ) => $trail
+//		->parent( 'platform.systems.roles' )
+//		->push( $role->name, route( 'platform.systems.roles.edit', $role ) ) );
 
 // Platform > System > Roles > Create
-Route::screen( 'roles/create', RoleEditScreen::class )
-	->name( 'platform.systems.roles.create' )
-	->breadcrumbs( fn( Trail $trail ) => $trail
-		->parent( 'platform.systems.roles' )
-		->push( __( 'Create' ), route( 'platform.systems.roles.create' ) ) );
+//Route::screen( 'roles/create', RoleEditScreen::class )
+//	->name( 'platform.systems.roles.create' )
+//	->breadcrumbs( fn( Trail $trail ) => $trail
+//		->parent( 'platform.systems.roles' )
+//		->push( __( 'Create' ), route( 'platform.systems.roles.create' ) ) );
 
 // Platform > System > Roles
-Route::screen( 'roles', RoleListScreen::class )
-	->name( 'platform.systems.roles' )
-	->breadcrumbs( fn( Trail $trail ) => $trail
-		->parent( 'platform.index' )
-		->push( __( 'Roles' ), route( 'platform.systems.roles' ) ) );
+//Route::screen( 'roles', RoleListScreen::class )
+//	->name( 'platform.systems.roles' )
+//	->breadcrumbs( fn( Trail $trail ) => $trail
+//		->parent( 'platform.index' )
+//		->push( __( 'Roles' ), route( 'platform.systems.roles' ) ) );
 
 // Platform > Texts
 Route::screen( 'texts', TextListScreen::class )
 	->name( 'platform.texts' )
 	->breadcrumbs( fn( Trail $trail ) => $trail
 		->parent( 'platform.index' )
-		->push( __( 'Texts' ), route( 'platform.texts' ) ) );
+		->push( __( 'Текста' ), route( 'platform.texts' ) ) );
 

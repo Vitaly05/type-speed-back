@@ -32,7 +32,7 @@ class TextListScreen extends Screen
 	 */
 	public function name() : ?string
 	{
-		return __( 'Texts list' );
+		return __( 'Список текстов' );
 	}
 
 	/**
@@ -43,11 +43,11 @@ class TextListScreen extends Screen
 	public function commandBar() : iterable
 	{
 		return [
-			ModalToggle::make( __( 'Create new' ) )
+			ModalToggle::make( __( 'Создать новый' ) )
 				->icon( 'bs.plus-lg' )
 				->modal( 'editTextModal' )
 				->method( 'saveText' )
-				->modalTitle( __( 'Create new text' ) ),
+				->modalTitle( __( 'Создать новый текст' ) ),
 		];
 	}
 
@@ -82,12 +82,12 @@ class TextListScreen extends Screen
 		$newData = $request->all()['text'];
 		$text->fill( $newData )->save();
 
-		Toast::success( __( 'The text has been saved' ) )->disableAutoHide();
+		Toast::success( __( 'Текст был сохранён' ) )->disableAutoHide();
 	}
 
 	public function deleteText( Text $text )
 	{
 		$text->delete();
-		Toast::error( __( 'The text has been deleted' ) )->disableAutoHide();
+		Toast::error( __( 'Текст был удалён' ) )->disableAutoHide();
 	}
 }

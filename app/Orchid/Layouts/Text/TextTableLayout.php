@@ -31,19 +31,19 @@ class TextTableLayout extends Table
 	protected function columns() : iterable
 	{
 		return [
-			TD::make( 'id', __( 'ID' ) )
+			TD::make( 'id', __( '№' ) )
 				->sort()
 				->filter(),
-			TD::make( 'title', __( 'Title' ) )
+			TD::make( 'title', __( 'Название' ) )
 				->sort()
 				->filter(),
-			TD::make( 'created_at', __( 'Created' ) )
+			TD::make( 'created_at', __( 'Создан' ) )
 				->usingComponent( DateTimeSplit::class )
 				->sort(),
-			TD::make( 'updated_at', __( 'Updated' ) )
+			TD::make( 'updated_at', __( 'Последнее редактирование' ) )
 				->usingComponent( DateTimeSplit::class )
 				->sort(),
-			TD::make( 'action', __( 'Action' ) )
+			TD::make( 'action', __( 'Действия' ) )
 				->align( TD::ALIGN_RIGHT )
 				->render( function ( Text $text ) {
 					return DropDown::make()
@@ -53,7 +53,7 @@ class TextTableLayout extends Table
 								->icon( 'bs.pencil' )
 								->modal( 'editTextModal' )
 								->method( 'saveText' )
-								->modalTitle( __( 'Edit text' ) )
+								->modalTitle( __( 'Редактировать текст' ) )
 								->asyncParameters( [
 									'text' => $text->id,
 								] ),

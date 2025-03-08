@@ -2,7 +2,7 @@
 
 @section( 'content' )
 	<div class="header">
-		Сброс пароля на TypeSpeed
+		Сброс пароля на Скорость печати
 	</div>
 
 	<div class="content">

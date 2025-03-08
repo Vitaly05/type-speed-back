@@ -29,7 +29,7 @@ class ResetPasswordRequestMail extends Mailable
 	public function envelope() : Envelope
 	{
 		return new Envelope(
-			subject: 'Reset Password Request',
+			subject: __( 'Запрос на сброс пароля' ),
 		);
 	}
 
