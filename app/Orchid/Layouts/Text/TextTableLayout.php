@@ -63,7 +63,7 @@ class TextTableLayout extends Table
 								] )
 								->type( Color::DANGER )
 								->icon( 'bs.trash' )
-								->confirm( __( 'Delete this text?' ) )
+								->confirm( __( 'Удалить этот текст?' ) )
 						] );
 				} ),
 		];
